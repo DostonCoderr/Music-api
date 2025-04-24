@@ -1,0 +1,92 @@
+
+MUSIC API - AUTHENTICATION & RATING SETUP (STEP BY STEP)
+=========================================================
+
+✅ 1. NPM Packages Installed:
+-----------------------------
+npm install express mongoose cors dotenv bcrypt jsonwebtoken
+
+✅ 2. Folder/File Structure Created:
+------------------------------------
+- models/User.js
+- controllers/authController.js
+- routes/authRoutes.js
+- middleware/authMiddleware.js
+
+✅ 3. User Model (models/User.js):
+----------------------------------
+- username (unique, required)
+- email (unique, required, email format)
+- password (hashed with bcrypt)
+- isAdmin (boolean)
+
+✅ 4. Auth Controller (controllers/authController.js):
+-------------------------------------------------------
+POST /api/auth/signup
+- Checks if email exists
+- Hashes password with bcrypt
+- Saves user
+
+POST /api/auth/login
+- Validates email and password
+- Returns JWT token if valid
+
+✅ 5. Middleware (middleware/authMiddleware.js):
+------------------------------------------------
+- protect: verifies JWT token from Authorization header
+- isAdmin: checks if user is admin
+
+✅ 6. Routes (routes/authRoutes.js):
+-------------------------------------
+- POST /api/auth/signup -> register user
+- POST /api/auth/login -> login user
+
+✅ 7. ENV Setup (.env):
+------------------------
+JWT_SECRET=your_jwt_secret_key
+
+✅ 8. Rating Endpoint Added (controllers/songController.js):
+-------------------------------------------------------------
+POST /api/songs/:id/rate
+- Accepts rating from 1 to 5
+- Recalculates average rating
+
+✅ 9. Use in Server (server.js or app.js):
+------------------------------------------
+const authRoutes = require('./routes/authRoutes');
+app.use('/api/auth', authRoutes);
+
+=========================================================
+END OF AUTH & RATING SETUP
+=========================================================
+
+
+
+
+Endpoint ishlashi:
+
+Method	Endpoint	               Description	                     Token kerakmi
+POST	/api/songs/:id/rate	   Songga rating berish	                     ✅ Ha
+
+
+
+
+Endpointlar ro‘yxati:
+
+Method	Endpoint	               Description	            Token kerakmi	          Admin kerakmi
+POST	/api/subcategories	      Subcategory yaratish	     ✅ Ha	                   ✅ Ha
+DELETE	/api/subcategories/:id	  Subcategory o‘chirish	     ✅ Ha	                   ✅ Ha
+
+
+
+----------------------------Category qoshildi-----------------------
+
+Method | Endpoint |          Description |                     Token kerakmi | Admin kerakmi
+POST | /api/categories |     Category yaratish |               ✅ Ha |           ✅ Ha
+GET | /api/categories |       Barcha Categorylarni olish |     ❌ Yo‘q  |        ❌ Yo‘q
+DELETE | /api/categories/:id | Categoryni o‘chirish |          ✅ Ha |          ✅ Ha
+
+
+
+
+
